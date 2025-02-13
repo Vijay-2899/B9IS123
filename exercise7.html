@@ -16,8 +16,8 @@
         }
 
         function doIt7() {
-            let basket = JSON.parse(document.getElementById("basket").value);
-            let prices = JSON.parse(document.getElementById("prices").value);
+            let basket = parse(document.getElementById("basket").value);
+            let prices = parse(document.getElementById("prices").value);
             let total = f7(basket, prices);
             alert("The total cost is: $" + total);
         }

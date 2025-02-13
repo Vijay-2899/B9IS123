@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Exercises</title>
+    <script>
+        function f5(a, l) {
+            let sum = 0;
+            for (let i = 0; i < l.length; i++) {
+                if (l[i] % a[0] === 0 || l[i] % a[1] === 0) {
+                    sum += l[i];
+                }
+            }
+            return sum;
+        }
+
+        function doIt5() {
+            let a = document.getElementById("a5").value.split(',').map(Number);
+            let l = document.getElementById("l5").value.split(',').map(Number);
+            let result = f5(a, l);
+            alert("The sum of multiples of factors in the array is: " + result);
+        }
+    </script>
+</head>
+    <body>
+        <p>Exercise 5: Sum of Multiples from Array of Factors</p>
+        <input type="text" id="a5" placeholder="a (comma separated)">
+        <input type="text" id="l5" placeholder="Array (comma separated)">
+        <button onclick="doIt5()">Press me!</button>
+    </body>
+</html>

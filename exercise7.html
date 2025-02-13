@@ -16,17 +16,28 @@
         }
 
         function doIt7() {
-            let basket = JSON.parse(document.getElementById("basket").value);
-            let prices = JSON.parse(document.getElementById("prices").value);
-            let total = f7(basket, prices);
-            alert("The total cost is: $" + total);
+            try {
+                let basket = JSON.parse(document.getElementById("basket").value);
+                let prices = JSON.parse(document.getElementById("prices").value);
+
+                // Ensure basket and prices are objects and not empty
+                if (typeof basket !== 'object' || typeof prices !== 'object') {
+                    alert("Please enter valid objects for basket and prices.");
+                    return;
+                }
+
+                let total = f7(basket, prices);
+                alert("The total cost is: $" + total.toFixed(2)); // formatting the result to two decimal places
+            } catch (e) {
+                alert("Invalid JSON input. Please make sure both fields contain valid JSON objects.");
+            }
         }
     </script>
 </head>
     <body>
         <p>Exercise 7: Calculate Basket Cost</p>
-    <textarea id="basket" placeholder='Enter basket (e.g., {"apple": 2, "banana": 3})'></textarea><br>
-    <textarea id="prices" placeholder='Enter prices (e.g., {"apple": 1.5, "banana": 0.5})'></textarea><br>
-    <button onclick="doIt7()">Calculate Cost</button>
+        <textarea id="basket" placeholder='Enter basket (e.g., {"apple": 2, "banana": 3})'></textarea><br>
+        <textarea id="prices" placeholder='Enter prices (e.g., {"apple": 1.5, "banana": 0.5})'></textarea><br>
+        <button onclick="doIt7()">Calculate Cost</button>
     </body>
 </html>

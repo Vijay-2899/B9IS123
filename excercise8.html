@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basket Testing</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            margin-bottom: 20px;
+        }
+        input {
+            padding: 5px;
+        }
+        button {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test Your Basket</h1>
+    <div class="container">
+        <label for="product">Product:</label>
+        <input type="text" id="product" placeholder="Enter product name">
+    </div>
+    <div class="container">
+        <label for="qty">Quantity:</label>
+        <input type="number" id="qty" min="1" placeholder="Enter quantity">
+    </div>
+    <button onclick="addItemToBasket()">Add Item</button>
+
+    <h3>Items in Basket:</h3>
+    <ul id="itemList"></ul>
+
+    <h3>Total Cost: $<span id="totalCost">0</span></h3>
+
+    <script>
+        class Basket {
+            constructor() {
+                this.items = [];
+            }
+
+            addItem(product, qty) {
+                // Add product and quantity to the basket
+                this.items.push({ product, qty });
+            }
+
+            getCost(prices) {
+                let totalCost = 0;
+                this.items.forEach(item => {
+                    if (prices[item.product]) {
+                        totalCost += prices[item.product] * item.qty;
+                    } else {
+                        alert(`Price for ${item.product} not found.`);
+                    }
+                });
+                return totalCost;
+            }
+        }
+
+        // Prices of products
+        const prices = {
+            apple: 1.2,
+            banana: 0.5
+        };
+
+        // Create a new basket instance
+        const basket = new Basket();
+
+        function addItemToBasket() {
+            const product = document.getElementById('product').value;
+            const qty = document.getElementById('qty').value;
+
+            if (!product || !qty) {
+                alert('Please enter both product and quantity!');
+                return;
+            }
+
+            // Add item to the basket
+            basket.addItem(product, parseInt(qty));
+
+            // Update the UI
+            updateItemList();
+            updateTotalCost();
+        }
+
+        function updateItemList() {
+            const itemList = document.getElementById('itemList');
+            itemList.innerHTML = '';  // Clear the current list
+
+            basket.items.forEach(item => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `${item.qty} x ${item.product}`;
+                itemList.appendChild(listItem);
+            });
+        }
+
+        function updateTotalCost() {
+            const totalCost = basket.getCost(prices);
+            document.getElementById('totalCost').textContent = totalCost.toFixed(2);
+        }
+    </script>
+</body>
+</html>
